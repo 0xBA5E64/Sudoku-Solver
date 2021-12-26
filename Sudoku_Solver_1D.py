@@ -10,6 +10,8 @@ sudoku = [
     4,6,1,3,7,0,0,5,9,
 ]
 
+SUDOKU_SIZE = 9
+
 # Get the coordz for all unsolved spaces.
 unsolved_spaces = []
 for i in range(0,SUDOKU_SIZE):
