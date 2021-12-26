@@ -23,3 +23,10 @@ def sudokuGetRow(input, pos):
     for i in range(SUDOKU_SIZE):
         out.append(input[(pos // SUDOKU_SIZE) * SUDOKU_SIZE + i])
     return out
+
+def sudokuGetCol(input, pos):
+    # Loop method:
+    out = []
+    for i in range(SUDOKU_SIZE):
+        out.append(input[(SUDOKU_SIZE * i) + (pos % SUDOKU_SIZE)])
+    return out
