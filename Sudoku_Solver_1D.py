@@ -72,5 +72,12 @@ def sudokuGetSqr(input, pos):
     
     return out
 
-# Testing
-print(sudokuGetSqr(sudoku, 80))
+def sudokuGetAllUsedNumbers(input, pos):
+    out = []
+    out.extend(sudokuGetRow(input, pos))
+    out.extend(sudokuGetCol(input, pos))
+    out.extend(sudokuGetSqr(input, pos))
+
+    out = list(set(out))
+
+    return out
