@@ -65,8 +65,7 @@ def sudokuGetSqr(input, pos):
     # (sqrid // 3 * 27) gets us to the right row. (every 3rd sqrid we increase the sqrsp by 27)
 
     for i in range(3):
-        for i2 in input[sqrsp+(9*i):sqrsp+(9*i)+3]:
-            out.append(i2)
+        out.extend(input[sqrsp+(9*i):sqrsp+(9*i)+3])
     
     return out
 
