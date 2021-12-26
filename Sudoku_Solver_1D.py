@@ -32,3 +32,43 @@ def sudokuGetCol(input, pos):
     for i in range(SUDOKU_SIZE):
         out.append(input[(SUDOKU_SIZE * i) + (pos % SUDOKU_SIZE)])
     return out
+
+def sudokuGetSqr(input, pos):
+    out = []
+
+    # SQuaRe ID
+    sqrid = pos // 3 % 3 + (pos // 27 * 3)
+    # ^ This needs an expaination.
+    #
+    #  > i // 3 % 3 + (i // 27 * 3) 
+    #
+    #          "i // 3" gives you an incrament on threes, 000_111_222_333_444_555 etc.
+    #            " % 3" wraps that to be 000_111_222_000_111_222 etc.
+    # "+ (i // 27 + 3)" then also increments on 27, which is to say on every 3rd *row*
+    #
+    # This, in summary, gives, if iterated through with i going from 0-80 in "i // 3 % 3 + (i // 27 * 3)"";
+    #
+    # [0,0,0,1,1,1,2,2,2,
+    #  0,0,0,1,1,1,2,2,2,
+    #  0,0,0,1,1,1,2,2,2,
+    #  3,3,3,4,4,4,5,5,5,
+    #  3,3,3,4,4,4,5,5,5,
+    #  3,3,3,4,4,4,5,5,5,
+    #  6,6,6,7,7,7,8,8,8,
+    #  6,6,6,7,7,7,8,8,8,
+    #  6,6,6,7,7,7,8,8,8]
+    
+    # SQuaRe Start Position (top-left)
+    sqrsp = (sqrid * 3 % 9) + (sqrid // 3 * 27)
+    # sigh... ^ this too.
+    # (sqrid  * 3 %  9) gets us to the right column.
+    # (sqrid // 3 * 27) gets us to the right row. (every 3rd sqrid we increase the sqrsp by 27)
+
+    for i in range(3):
+        for i2 in input[sqrsp+(9*i):sqrsp+(9*i)+3]:
+            out.append(i2)
+    
+    return out
+
+# Testing
+print(sudokuGetSqr(sudoku, 80))
