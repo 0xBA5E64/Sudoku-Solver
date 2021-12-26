@@ -16,3 +16,10 @@ for i in range(0,SUDOKU_SIZE):
     if sudoku[i] == 0:
         unsolved_spaces.append(i);
 #print(unsolved_spaces)
+
+def sudokuGetRow(input, pos):
+    # Loop method:
+    out = []
+    for i in range(SUDOKU_SIZE):
+        out.append(input[(pos // SUDOKU_SIZE) * SUDOKU_SIZE + i])
+    return out
