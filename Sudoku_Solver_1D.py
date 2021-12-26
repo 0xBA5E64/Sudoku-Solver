@@ -11,6 +11,7 @@ sudoku = [
 ]
 
 SUDOKU_SIZE = 9
+SUDOKU_SUBBOX_SIZE = 3
 
 # Get the coordz for all unsolved spaces.
 unsolved_spaces = []
@@ -37,7 +38,8 @@ def sudokuGetSqr(input, pos):
     out = []
 
     # SQuaRe ID
-    sqrid = pos // 3 % 3 + (pos // 27 * 3)
+    sqrid = pos // SUDOKU_SUBBOX_SIZE % SUDOKU_SUBBOX_SIZE + (pos // (SUDOKU_SIZE * SUDOKU_SUBBOX_SIZE) * SUDOKU_SUBBOX_SIZE)
+    #sqrid = pos // 3 % 3 + (pos // 27 * 3)
     # ^ This needs an expaination.
     #
     #  > i // 3 % 3 + (i // 27 * 3) 
@@ -59,13 +61,14 @@ def sudokuGetSqr(input, pos):
     #  6,6,6,7,7,7,8,8,8]
     
     # SQuaRe Start Position (top-left)
-    sqrsp = (sqrid * 3 % 9) + (sqrid // 3 * 27)
+    sqrsp = (sqrid * SUDOKU_SUBBOX_SIZE % SUDOKU_SIZE) + (sqrid // SUDOKU_SUBBOX_SIZE * (SUDOKU_SUBBOX_SIZE * SUDOKU_SIZE))
+    #sqrsp = (sqrid * 3 % 9) + (sqrid // 3 * 27)
     # sigh... ^ this too.
     # (sqrid  * 3 %  9) gets us to the right column.
     # (sqrid // 3 * 27) gets us to the right row. (every 3rd sqrid we increase the sqrsp by 27)
 
     for i in range(3):
-        out.extend(input[sqrsp+(9*i):sqrsp+(9*i)+3])
+        out.extend(input[sqrsp+(SUDOKU_SIZE*i):sqrsp+(SUDOKU_SIZE*i)+SUDOKU_SUBBOX_SIZE])
     
     return out
 
