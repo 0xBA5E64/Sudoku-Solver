@@ -81,3 +81,16 @@ def sudokuGetAllUsedNumbers(input, pos):
     out = list(set(out))
 
     return out
+
+def sudokuGetAllFreeNumbers(input, pos):
+    out = list(range(1,10))
+
+    used = sudokuGetAllUsedNumbers(input, pos)
+
+    for i in used:
+        try:
+            out.remove(i)
+        except:
+            continue
+
+    return out
