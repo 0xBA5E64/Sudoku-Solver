@@ -22,7 +22,6 @@ def sudokuPrint(input):
             i+=1
         print(tmp)
 
-# Get the coordz for all unsolved spaces.
 def sudokuGetUnsolvedSpaces(input):
     out = []
     for i in range(0,len(input)):
