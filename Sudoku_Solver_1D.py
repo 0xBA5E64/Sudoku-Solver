@@ -13,6 +13,15 @@ sudoku = [
 SUDOKU_SIZE = 9
 SUDOKU_SUBBOX_SIZE = 3
 
+def sudokuPrint(input):
+    i = 0
+    while i < len(sudoku):
+        tmp = ""
+        for i2 in range(9):
+            tmp += str(sudoku[i]) + ","
+            i+=1
+        print(tmp)
+
 # Get the coordz for all unsolved spaces.
 unsolved_spaces = []
 for i in range(0,SUDOKU_SIZE):
