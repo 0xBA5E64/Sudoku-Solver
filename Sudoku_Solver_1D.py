@@ -26,9 +26,11 @@ def sudokuPrint(input):
 def sudokuGetUnsolvedSpaces(input):
     out = []
     for i in range(0,SUDOKU_SIZE):
-    if sudoku[i] == 0:
-        unsolved_spaces.append(i);
-#print(unsolved_spaces)
+        if input[i] == 0:
+            out.append(i);
+    return out
+
+unsolved_spaces = sudokuGetUnsolvedSpaces(sudoku)
 
 def sudokuGetRow(input, pos):
     # Loop method:
