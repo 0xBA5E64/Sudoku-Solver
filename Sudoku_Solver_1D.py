@@ -135,7 +135,7 @@ while solving:
         #else: # Verbose output option (disabled by default)
         #    print("Possible solutions for Space#", current_space, ": ", current_openings)
     
-    if !solving:
+    if solving == False:
         print("[x] No more solutions found... Stopping loop")
 
     print("---FINISHING LOOP",loop,"---")
