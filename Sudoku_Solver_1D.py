@@ -103,3 +103,6 @@ def sudokuGetAllFreeNumbers(input, pos):
             continue
 
     return out
+
+print("SUDOKU STEP 00 - RAW:")
+sudokuPrint(sudoku)
