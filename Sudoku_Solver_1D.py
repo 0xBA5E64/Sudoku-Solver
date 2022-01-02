@@ -30,8 +30,6 @@ def sudokuGetUnsolvedSpaces(input):
             out.append(i);
     return out
 
-unsolved_spaces = sudokuGetUnsolvedSpaces(sudoku)
-
 def sudokuGetRow(input, pos):
     # Loop method:
     out = []
@@ -109,3 +107,39 @@ def sudokuGetAllFreeNumbers(input, pos):
 
 print("SUDOKU STEP 00 - RAW:")
 sudokuPrint(sudoku)
+
+# SUDOKU SOLVING STEP 01 - ABSOLUTES
+# 
+# Before bruteforcing, we can *at least* solve the obvious spaces which-
+# are sure to only hold one specific number, no matter what.
+# In fact, once that's done, we should try once again, to see if these-
+# newly solved spots mark any other openings as "absolutes".
+
+sudoku_solve = sudoku # copy of sudoku which will be modified through solving process
+solving      = True   # bool to decide if it's worth still looping or not (set to false on each loop by default, changed to True if a solution is found)
+loop         = 0      # integer to keep track of which iteration we're so far on.
+
+while solving:
+    solving = False # Pre-emptively set solve to false to stop the loop if nothing happens (will be set to True in case this iteration find any solutions)
+
+    loop+=1 # Iterate loop integer for logging purposes
+    print("---ENTERING LOOP ",loop," ---")
+    unsolved_spaces= sudokuGetUnsolvedSpaces(sudoku_solve) # Get a list ("unsolved_spaces") of the index of all empty ("0"'d) spaces.
+    print("Unsolved Spaces: ", unsolved_spaces) # Verbose
+
+    for current_space in unsolved_spaces: # - - - - - - - - - - Iterate through every unsolved space with "current_space"
+        current_openings = sudokuGetAllFreeNumbers(sudoku_solve, current_space) # get openings for *this* current space
+        if len(current_openings) == 1: # - - - - - - - - - - -  If only a *single* opening can be found, it is absolute, and part of the final solution
+            print("[!] Found absolute solution for Space#", current_space, ": ", current_openings[0]) # Verbose
+            sudoku_solve[current_space] = current_openings[0] # Add the space's solution to the sudoku solution.
+            solving = True # - - - - - - - - - - - - - - - - -  Since we found a solution and in turn changed the sudoku we're solving, set solving to True to iterate once again in case this space leads to another potential absolute solution.
+        #else: # Verbose output option (disabled by default)
+        #    print("Possible solutions for Space#", current_space, ": ", current_openings)
+    
+    if !solving:
+        print("[x] No more solutions found... Stopping loop")
+
+    print("---FINISHING LOOP",loop,"---")
+
+print("Finished Sudoku:")
+sudokuPrint(sudoku_solve)
