@@ -13,7 +13,7 @@ sudoku = [
 SUDOKU_SIZE = 9
 SUDOKU_SUBBOX_SIZE = 3
 
-def sudokuPrint(input):
+def sudoku_print(input):
     i = 0
     while i < len(sudoku):
         tmp = ""
@@ -22,28 +22,28 @@ def sudokuPrint(input):
             i+=1
         print(tmp)
 
-def sudokuGetUnsolvedSpaces(input):
+def sudoku_get_unsolved_spaces(input):
     out = []
     for i in range(0,len(input)):
         if input[i] == 0:
             out.append(i);
     return out
 
-def sudokuGetRow(input, pos):
+def sudoku_get_row(input, pos):
     # Loop method:
     out = []
     for i in range(SUDOKU_SIZE):
         out.append(input[(pos // SUDOKU_SIZE) * SUDOKU_SIZE + i])
     return out
 
-def sudokuGetCol(input, pos):
+def sudoku_get_col(input, pos):
     # Loop method:
     out = []
     for i in range(SUDOKU_SIZE):
         out.append(input[(SUDOKU_SIZE * i) + (pos % SUDOKU_SIZE)])
     return out
 
-def sudokuGetSqr(input, pos):
+def sudoku_get_sqr(input, pos):
     out = []
 
     # SQuaRe ID
@@ -81,20 +81,20 @@ def sudokuGetSqr(input, pos):
     
     return out
 
-def sudokuGetAllUsedNumbers(input, pos):
+def sudoku_get_all_used_numbers(input, pos):
     out = []
-    out.extend(sudokuGetRow(input, pos))
-    out.extend(sudokuGetCol(input, pos))
-    out.extend(sudokuGetSqr(input, pos))
+    out.extend(sudoku_get_row(input, pos))
+    out.extend(sudoku_get_col(input, pos))
+    out.extend(sudoku_get_sqr(input, pos))
 
     out = list(set(out))
 
     return out
 
-def sudokuGetAllFreeNumbers(input, pos):
+def sudoku_get_all_free_numbers(input, pos):
     out = list(range(1,10))
 
-    used = sudokuGetAllUsedNumbers(input, pos)
+    used = sudoku_get_all_used_numbers(input, pos)
 
     for i in used:
         try:
@@ -105,7 +105,7 @@ def sudokuGetAllFreeNumbers(input, pos):
     return out
 
 print("SUDOKU STEP 00 - RAW:")
-sudokuPrint(sudoku)
+sudoku_print(sudoku)
 
 # SUDOKU SOLVING STEP 01 - ABSOLUTES
 # 
@@ -123,11 +123,11 @@ while solving:
 
     loop+=1 # Iterate loop integer for logging purposes
     print("---ENTERING LOOP ",loop," ---")
-    unsolved_spaces= sudokuGetUnsolvedSpaces(sudoku_solve) # Get a list ("unsolved_spaces") of the index of all empty ("0"'d) spaces.
+    unsolved_spaces= sudoku_get_unsolved_spaces(sudoku_solve) # Get a list ("unsolved_spaces") of the index of all empty ("0"'d) spaces.
     print("[?] Unsolved Spaces: ", unsolved_spaces) # Verbose
 
     for current_space in unsolved_spaces: # - - - - - - - - - - Iterate through every unsolved space with "current_space"
-        current_openings = sudokuGetAllFreeNumbers(sudoku_solve, current_space) # get openings for *this* current space
+        current_openings = sudoku_get_all_free_numbers(sudoku_solve, current_space) # get openings for *this* current space
         if len(current_openings) == 1: # - - - - - - - - - - -  If only a *single* opening can be found, it is absolute, and part of the final solution
             print("[!] Found absolute solution for Space#", current_space, ": ", current_openings[0]) # Verbose
             sudoku_solve[current_space] = current_openings[0] # Add the space's solution to the sudoku solution.
@@ -141,4 +141,4 @@ while solving:
     print("---FINISHING LOOP",loop,"---")
 
 print("Finished Sudoku:")
-sudokuPrint(sudoku_solve)
+sudoku_print(sudoku_solve)
