@@ -14,13 +14,14 @@ SUDOKU_SIZE = 9
 SUDOKU_SUBBOX_SIZE = 3
 
 def sudoku_print(input):
-    i = 0
-    while i < len(sudoku):
-        tmp = ""
-        for i2 in range(9):
-            tmp += str(sudoku[i]) + ","
-            i+=1
-        print(tmp)
+    """ Prints a sudoku-array into a readable block in the user's terminal """
+    print( "┌─" + ( "─" * ( SUDOKU_SIZE*2 ) ) + "┐" ) # Box-drawing top
+    for ih in range(SUDOKU_SIZE): # Iterate through rows
+        line = ""
+        for iw in range(SUDOKU_SIZE): # Iterate over entries on line
+            line += f"{input[ ( ih * SUDOKU_SIZE) + iw]} "
+        print(f"│ {line}│") # Print formatted line with flanking box-drawing characters
+    print( "└─" + ( "─" * ( SUDOKU_SIZE*2 ) ) + "┘" ) # Box-drawing bottom
 
 def sudoku_get_unsolved_spaces(input):
     out = []
