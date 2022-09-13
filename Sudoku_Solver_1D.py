@@ -1,3 +1,6 @@
+import logging
+logging.basicConfig(format="[%(asctime)s] %(levelname)s: %(message)s", level=logging.DEBUG)
+
 sudoku = [
     0,0,0,2,3,0,1,8,0,
     0,4,0,0,0,0,0,3,0,
@@ -105,7 +108,7 @@ def sudoku_get_all_free_numbers(input, pos):
 
     return out
 
-print("SUDOKU STEP 00 - RAW:")
+logging.info("SUDOKU STEP 00 - RAW:")
 sudoku_print(sudoku)
 
 # SUDOKU SOLVING STEP 01 - ABSOLUTES
@@ -123,23 +126,23 @@ while solving:
     solving = False # Pre-emptively set solve to false to stop the loop if nothing happens (will be set to True in case this iteration find any solutions)
 
     loop+=1 # Iterate loop integer for logging purposes
-    print("---ENTERING LOOP ",loop," ---")
+    logging.info("┌─ ENTERING LOOP %s ---", loop)
     unsolved_spaces= sudoku_get_unsolved_spaces(sudoku_solve) # Get a list ("unsolved_spaces") of the index of all empty ("0"'d) spaces.
-    print("[?] Unsolved Spaces: ", unsolved_spaces) # Verbose
+    logging.info("│ [?] Unsolved Spaces: %s", unsolved_spaces) # Verbose
 
     for current_space in unsolved_spaces: # - - - - - - - - - - Iterate through every unsolved space with "current_space"
         current_openings = sudoku_get_all_free_numbers(sudoku_solve, current_space) # get openings for *this* current space
         if len(current_openings) == 1: # - - - - - - - - - - -  If only a *single* opening can be found, it is absolute, and part of the final solution
-            print("[!] Found absolute solution for Space#", current_space, ": ", current_openings[0]) # Verbose
+            logging.info("│ [!] Found absolute solution for Space#%s: %s", current_space, current_openings[0]) # Verbose
             sudoku_solve[current_space] = current_openings[0] # Add the space's solution to the sudoku solution.
             solving = True # - - - - - - - - - - - - - - - - -  Since we found a solution and in turn changed the sudoku we're solving, set solving to True to iterate once again in case this space leads to another potential absolute solution.
         #else: # Verbose output option (disabled by default)
         #    print("Possible solutions for Space#", current_space, ": ", current_openings)
     
     if solving == False:
-        print("[x] No more solutions found... Stopping loop")
+        logging.info("│ [x] No more solutions found... Stopping loop")
 
-    print("---FINISHING LOOP",loop,"---")
+    logging.info("└─ FINISHING LOOP %s ---\n", loop)
 
-print("Finished Sudoku:")
+logging.info("Finished Sudoku:")
 sudoku_print(sudoku_solve)
