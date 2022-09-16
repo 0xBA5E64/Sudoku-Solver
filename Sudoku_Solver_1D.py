@@ -127,8 +127,8 @@ while solving:
 
     loop+=1 # Iterate loop integer for logging purposes
     logging.info("┌─ ENTERING LOOP %s ---", loop)
-    unsolved_spaces= sudoku_get_unsolved_spaces(sudoku_solve) # Get a list ("unsolved_spaces") of the index of all empty ("0"'d) spaces.
-    logging.info("│ [?] Unsolved Spaces: %s", unsolved_spaces) # Verbose
+    unsolved_spaces = sudoku_get_unsolved_spaces(sudoku_solve) # Get a list ("unsolved_spaces") of the index of all empty ("0"'d) spaces.
+    logging.info("│ [?] Unsolved Spaces (%s): %s", len(unsolved_spaces), unsolved_spaces) # Verbose
 
     for current_space in unsolved_spaces: # - - - - - - - - - - Iterate through every unsolved space with "current_space"
         current_openings = sudoku_get_all_free_numbers(sudoku_solve, current_space) # get openings for *this* current space
