@@ -108,6 +108,21 @@ def sudoku_get_all_free_numbers(input, pos):
 
     return out
 
+def sudoku_verify_solution(input):
+    for i in range( len(input) ):
+        
+        print(sudoku_get_row(input, i))
+        print(sorted(sudoku_get_row(input, i)))
+        print(list(range(1,SUDOKU_SIZE+1)))
+        
+        if sorted(sudoku_get_row(input, i)) != list(range(1,SUDOKU_SIZE+1)):
+            return False
+        if sorted(sudoku_get_col(input, i)) != list(range(1,SUDOKU_SIZE+1)):
+            return False
+        if sorted(sudoku_get_sqr(input, i)) != list(range(1,SUDOKU_SIZE+1)):
+            return False
+    return True
+
 logging.info("SUDOKU STEP 00 - RAW:")
 sudoku_print(sudoku)
 
@@ -149,7 +164,7 @@ sudoku_print(sudoku_solve)
 
 unsolved_spaces = sudoku_get_unsolved_spaces(sudoku_solve)
 
-def brute_layer(input_sudoku, layer):
+def brute_layer(input_sudoku, layer=0):
     if layer == len(unsolved_spaces):
         return True
     openings = sudoku_get_all_free_numbers(input_sudoku, unsolved_spaces[layer])
@@ -160,7 +175,7 @@ def brute_layer(input_sudoku, layer):
     input_sudoku[unsolved_spaces[layer]] = 0
     return False
 
-brute_layer(sudoku_solve, 0)
+brute_layer(sudoku_solve)
 
 logging.info("Finished Sudoku:")
 sudoku_print(sudoku_solve)
