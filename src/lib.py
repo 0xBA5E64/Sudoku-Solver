@@ -1,3 +1,5 @@
+import logging
+
 class Sudoku:
     def __init__(self, data, SIZE=9, SUB_SIZE=3):
         self.data = data
@@ -102,8 +104,6 @@ class Sudoku:
             if sorted(self.get_sqr_of(i)) != list(range(1, self.SIZE+1)):
                 return False
         return True
-
-import logging
 
 def solve_absolutes(input):
 
