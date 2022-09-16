@@ -1,7 +1,9 @@
 import logging
 
 class Sudoku:
-    def __init__(self, data, SIZE=9, SUB_SIZE=3):
+    """Stores a sudoku board.
+    Defaults asks for 81 integers in a list for a traditional 9x9 grid with a sub-grid size of 3x3"""
+    def __init__(self: list[int], data, SIZE=9, SUB_SIZE=3):
         self.data = data
         self.SIZE=9
         self.SUB_SIZE = SUB_SIZE
@@ -17,25 +19,29 @@ class Sudoku:
         print( "└─" + ( "─" * ( self.SIZE*2 ) ) + "┘" ) # Box-drawing bottom
 
     def get_unsolved_spaces(self):
+        """Returns a list of all indexes for all so far unsolved spacaes"""
         out = []
         for i in range(0,len(self.data)):
             if self.data[i] == 0:
                 out.append(i);
         return out
     
-    def get_row_of(self, pos):
+    def get_row_of(self, pos: int):
+        """Returns a list of all other numbers used on the same row of of the provided index's space"""
         out = []
         for i in range(self.SIZE):
             out.append(self.data[(pos // self.SIZE) * self.SIZE + i])
         return out
     
-    def get_col_of(self, pos):
+    def get_col_of(self, pos: int):
+        """Returns a list of all other numbers used on the same column of of the provided index's space"""
         out = []
         for i in range(self.SIZE):
             out.append(self.data[(self.SIZE * i) + (pos % self.SIZE)])
         return out
     
-    def get_sqr_of(self, pos):
+    def get_sqr_of(self, pos: int):
+        """Returns a list of all other numbers used on the same sub-square of the provided index's space"""
         out = []
     
         # SQuaRe ID
@@ -73,7 +79,8 @@ class Sudoku:
         
         return out
     
-    def get_used_of(self, pos):
+    def get_used_of(self, pos: int):
+        """Returns a list of all numbers that are already taken for said index's space"""
         out = []
         out.extend(self.get_row_of(pos))
         out.extend(self.get_col_of(pos))
@@ -83,7 +90,8 @@ class Sudoku:
 
         return out
     
-    def get_free_of(self, pos):
+    def get_free_of(self, pos: int):
+        """Returns a list of all numbers that are currently free for said index's space"""
         out = list(range(1,10))
 
         used = self.get_used_of(pos)
@@ -96,6 +104,7 @@ class Sudoku:
         return out
     
     def check_solved(self):
+        """Checks if the current sudoku is verifyably or not"""
         for i in range( len(self.data) ):
             if sorted(self.get_row_of(i)) != list(range(1, self.SIZE+1)):
                 return False
@@ -105,7 +114,9 @@ class Sudoku:
                 return False
         return True
 
-def solve_absolutes(input):
+def solve_absolutes(input: Sudoku):
+    """Solve every space on a sudoku-board that has an obvious solution through iteation.
+    This function will iterate over each space on the board, checking every possible option for every spot. If only one possible option is found for a spot, said answer is applied to the board."""
 
     solving = True
     loop = 0
@@ -132,7 +143,9 @@ def solve_absolutes(input):
 
         logging.info("└─ FINISHING LOOP %s ---\n", loop)
 
-def reduced_brute(input):
+def reduced_brute(input: Sudoku):
+    """Solve Sudoku through "Intelligent Brute-Force" attack.
+    This solver should always be capable of returning a valid answer given enough time, but may produce error if given an impossible Sudoku to solve."""
 
     unsolved_spaces = input.get_unsolved_spaces()
 
