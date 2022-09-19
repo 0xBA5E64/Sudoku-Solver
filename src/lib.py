@@ -115,8 +115,10 @@ class Sudoku:
         return True
 
 def solve_absolutes(input: Sudoku):
-    """Solve every space on a sudoku-board that has an obvious solution through iteation.
-    This function will iterate over each space on the board, checking every possible option for every spot. If only one possible option is found for a spot, said answer is applied to the board."""
+    """Partial solver that aims to eliminate obvious answers from a sudoku first.
+    This function will iterate and check the options for every blank from the input sudoku.
+    If only one option is found for any said spot, said option is applied to the board.
+    This process is repeated until all blanks have at least two or more options."""
 
     solving = True
     loop = 0
