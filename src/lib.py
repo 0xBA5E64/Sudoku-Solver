@@ -146,8 +146,9 @@ def solve_absolutes(input: Sudoku):
         logging.info("└─ FINISHING LOOP %s ---\n", loop)
 
 def reduced_brute(input: Sudoku):
-    """Solve Sudoku through "Intelligent Brute-Force" attack.
-    This solver should always be capable of returning a valid answer given enough time, but may produce error if given an impossible Sudoku to solve."""
+    """Solve sudoku through "Reduced/Intelligent Brute-Force Attack" / Recursive Backtracking.
+    This function will check and recursively iterate over each possible combination of valid options for the blanks until all have been filled.
+    This solver should always return a valid answer to a possible sudoku given enough time."""
 
     unsolved_spaces = input.get_unsolved_spaces()
 
