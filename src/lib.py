@@ -47,7 +47,7 @@ class Sudoku:
         # SQuaRe ID
         sqrid = pos // self.SUB_SIZE % self.SUB_SIZE + (pos // (self.SIZE * self.SUB_SIZE) * self.SUB_SIZE)
         #sqrid = pos // 3 % 3 + (pos // 27 * 3)
-        # ^ This needs an expaination.
+        # ^ This needs an explanation.
         #
         #  > i // 3 % 3 + (i // 27 * 3) 
         #
