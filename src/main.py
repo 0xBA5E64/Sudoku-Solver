@@ -1,6 +1,8 @@
 from lib import Sudoku, solve_absolutes, reduced_brute
 import logging
-# logging.basicConfig(format="[%(asctime)s] %(levelname)s: %(message)s", level=logging.DEBUG)
+#logging.basicConfig(
+#    format="[%(asctime)s] %(levelname)s: %(message)s", level=logging.DEBUG)
+
 
 def main():
     my_sudoku = Sudoku([
