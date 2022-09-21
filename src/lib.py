@@ -5,7 +5,7 @@ class Sudoku:
     Defaults asks for 81 integers in a list for a traditional 9x9 grid with a sub-grid size of 3x3"""
     def __init__(self: list[int], data, SIZE=9, SUB_SIZE=3):
         self.data = data
-        self.SIZE=9
+        self.SIZE = SIZE
         self.SUB_SIZE = SUB_SIZE
     
     def print(self):
