@@ -74,7 +74,7 @@ class Sudoku:
         # (sqrid  * 3 %  9) gets us to the right column.
         # (sqrid // 3 * 27) gets us to the right row. (every 3rd sqrid we increase the sqrsp by 27)
     
-        for i in range(3):
+        for i in range(self.SUB_SIZE):
             out.extend(self.data[sqrsp+(self.SIZE*i):sqrsp+(self.SIZE*i)+self.SUB_SIZE])
         
         return out
